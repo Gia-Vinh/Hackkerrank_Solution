@@ -18,15 +18,27 @@ vector<string> split(const string &);
 int getTotalX(vector<int> a, vector<int> b) {
     bool isValid;               //flag to check if the current no. passes the requirements 
     int count = 0;              //variable to keep count of passed no.
-    //Any no. that passes the requirements can only be located in the range from [a[last]*2,b[last]/2]
-    if (a[a.size()-1]*2>(int)(b[0]/2)) return 0; //, so if this range is empty then we can return 0, else we iterate through every no. of this range
-    
-    
-    
-    
-    
-    
-    
+    //Any no. that passes the requirements can only be located in the range from [a(last),b(first)]
+    if ( (a[a.size()-1]) > b[0] ){
+        cout << "range is empty!";
+        return 0;  
+    }  //, so if this range is empty then we can return 0, else we iterate through every no. of this range
+    for (int i = a[a.size()-1]; i<= b[0];i++) {
+        isValid = true;         //Assume that the cur. no. passes the test
+        for (int n:a){          //Iterate through every elements in a
+            if (i%n != 0) {     //Check if cur. no. is NOT a multiple of elements of vector a 
+                isValid = false;
+                break;
+            }
+        }
+        for (int n:b){          //Iterate through every elements in b
+            if (n%i != 0) {     //Check if cur. no. is NOT a factor of elements of vector b 
+                isValid = false;
+                break;
+            }
+        }
+        if (isValid == true) count++; //If the cur. no. passes all tests, increase count by 1     
+    } 
     return count;
 }
 
